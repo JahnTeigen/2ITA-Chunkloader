@@ -32,6 +32,8 @@ public class Mc2ITA_CommandHandler {
 
                         ctx.getSource().sendSuccess(() -> 
                             Component.literal("Forceloaded current chunk"), true);
+                        ctx.getSource().sendSuccess(() -> 
+                            Component.literal("Use /forceload query to list all loaded chunks"), true);
                         return 1;
                     })
                 )
