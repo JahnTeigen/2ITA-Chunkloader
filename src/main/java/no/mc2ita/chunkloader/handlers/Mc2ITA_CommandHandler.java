@@ -4,6 +4,9 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.ChunkPos;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
@@ -22,17 +25,25 @@ public class Mc2ITA_CommandHandler {
                 .requires(source -> source.hasPermission(2)) // op level 2
                 .then(Commands.literal("load")
                     .executes(ctx -> {
-                        // TODO: Handle this command later type shit 
+                        ServerPlayer player = ctx.getSource().getPlayerOrException();
+                        ServerLevel level = ctx.getSource().getLevel();
+                        ChunkPos chunkPos = new ChunkPos(player.blockPosition());
+                        Mc2ITA_ChunkManager.forceLoad(level, chunkPos);
+
                         ctx.getSource().sendSuccess(() -> 
-                            Component.literal("Rastachunk is bomboloaded"), true);
+                            Component.literal("Forceloaded current chunk"), true);
                         return 1;
                     })
                 )
-                .then(Commands.literal("load")
+                .then(Commands.literal("unload")
                     .executes(ctx -> {
-                        // TODO: Handle this command later type shit 
+                        ServerPlayer player = ctx.getSource().getPlayerOrException();
+                        ServerLevel level = ctx.getSource().getLevel();
+                        ChunkPos chunkPos = new ChunkPos(player.blockPosition());
+                        Mc2ITA_ChunkManager.unload(level, chunkPos);
+
                         ctx.getSource().sendSuccess(() -> 
-                            Component.literal("Pussyclat chunk unloaded"), true);
+                            Component.literal("Unloaded current chunk"), true);
                         return 1;
                     })
                 )
