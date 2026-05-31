@@ -28,12 +28,14 @@ public class Mc2ITA_CommandHandler {
                         return 1;
                     })
                 )
-                .then(Commands.literal("unload"))
+                .then(Commands.literal("load")
                     .executes(ctx -> {
-                        // TODO: Handle the unloading later type shiiiiiyyyt
+                        // TODO: Handle this command later type shit 
                         ctx.getSource().sendSuccess(() -> 
-                            Component.literal("pussyclat chunk unloaded"), true);
+                            Component.literal("Pussyclat chunk unloaded"), true);
+                        return 1;
                     })
+                )
         );
     }
 }
